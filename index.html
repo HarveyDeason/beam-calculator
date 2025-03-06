@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beam Stress and Deflection Analysis</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Beam Analysis Tool</h1>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('calculator')">Calculator</div>
+            <div class="tab" onclick="switchTab('database')">Step-by-Step Analysis</div>
+        </div>
+        
+        <div id="calculator" class="tab-content active">
+            <label for="beam_type">Beam Type:</label>
+            <select id="beam_type" onchange="updateSizes()">
+                <option value="equal_angle">Equal Angle</option>
+                <option value="unequal_angle">Unequal Angle</option>
+                <option value="ibeam">I-Beam (Universal Beam)</option>
+                <option value="hbeam">H-Beam (Universal Column)</option>
+                <option value="pfc">PFC (Parallel Flange Channel)</option>
+                <option value="box_section">Box Section</option>
+                <option value="chs">Circular Hollow Section</option>
+                <option value="shs">Square Hollow Section</option>
+                <option value="rhs">Rectangular Hollow Section</option>
+            </select>
+
+            <label for="beam_size">Beam Size:</label>
+            <select id="beam_size"></select>
+
+            <label for="length">Length:</label>
+            <div class="input-group">
+                <input type="number" id="length" placeholder="Enter length">
+                <select id="length_unit">
+                    <option value="mm">mm</option>
+                    <option value="m">m</option>
+                    <option value="cm">cm</option>
+                </select>
+            </div>
+
+            <label for="force">Force:</label>
+            <div class="input-group">
+                <input type="number" id="force" placeholder="Enter force">
+                <select id="force_unit">
+                    <option value="N">N</option>
+                    <option value="kN">kN</option>
+                    <option value="kg">kg</option>
+                </select>
+            </div>
+
+            <div class="output-units">
+                <label>Output Units:</label>
+                <div>
+                    <label for="stress_unit">Stress:</label>
+                    <select id="stress_unit">
+                        <option value="N/mm²">N/mm²</option>
+                        <option value="MPa">MPa</option>
+                        <option value="kPa">kPa</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="deflection_unit">Deflection:</label>
+                    <select id="deflection_unit">
+                        <option value="mm">mm</option>
+                        <option value="cm">cm</option>
+                        <option value="m">m</option>
+                    </select>
+                </div>
+            </div>
+
+            <button onclick="calculate()">Calculate</button>
+
+            <div class="result" id="result">
+                <h3>Results:</h3>
+                <p>Stress: <span id="stress">-</span></p>
+                <p>Deflection: <span id="deflection">-</span></p>
+                
+                <h4>Beam Properties:</h4>
+                <div id="properties"></div>
+            </div>
+        </div>
+        
+        <div id="database" class="tab-content">
+            <h2>Step-by-Step Analysis</h2>
+            
+            <div class="calc-summary">
+                <h3>Select Beam for Analysis</h3>
+                <label for="db_beam_type">Beam Type:</label>
+                <select id="db_beam_type" onchange="updateDbSizes()">
+                    <option value="equal_angle">Equal Angle</option>
+                    <option value="unequal_angle">Unequal Angle</option>
+                    <option value="ibeam">I-Beam (Universal Beam)</option>
+                    <option value="hbeam">H-Beam (Universal Column)</option>
+                    <option value="pfc">PFC (Parallel Flange Channel)</option>
+                    <option value="box_section">Box Section</option>
+                    <option value="chs">Circular Hollow Section</option>
+                    <option value="shs">Square Hollow Section</option>
+                    <option value="rhs">Rectangular Hollow Section</option>
+                </select>
+                
+                <label for="db_beam_size">Beam Size:</label>
+                <select id="db_beam_size"></select>
+                
+                <div class="calc-inputs">
+                    <label for="db_length">Length (mm):</label>
+                    <input type="number" id="db_length" placeholder="Enter length in mm" value="1000">
+                    
+                    <label for="db_force">Force (N):</label>
+                    <input type="number" id="db_force" placeholder="Enter force in N" value="1000">
+                </div>
+                
+                <div class="calc-buttons">
+                    <button onclick="showStepByStep()">Show Analysis Steps</button>
+                </div>
+            </div>
+            
+            <div id="step_by_step_content"></div>
+        </div>
+
+        <div class="reference">
+            <p><strong>References:</strong></p>
+            <ul>
+                <li>Equal and Unequal Leg Angles: BS EN 10056-1:1999</li>
+                <li>Universal Beams and Columns: BS 4-1:2005</li>
+                <li>Hollow Sections: EN 10210-2</li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="module" src="scripts/ui.js"></script>
+</body>
+</html>
