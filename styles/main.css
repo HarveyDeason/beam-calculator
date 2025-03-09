@@ -51,3 +51,16 @@ th { background-color: #f2f2f2; }
 .output-units select {
     width: 100px;
 }
+
+.specification-toggle {
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.specification-content {
+    display: none; /* Initially hide the content */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}

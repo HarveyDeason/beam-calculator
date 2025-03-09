@@ -10,9 +10,12 @@
     <div class="container">
         <h1>Beam Analysis Tool</h1>
         
+        <p style="color: red; font-weight: bold; text-align: center;">Disclaimer: The calculator and information provided are for indicative use only and do not replace full calculations.</p>
+
         <div class="tabs">
             <div class="tab active" onclick="switchTab('calculator')">Calculator</div>
             <div class="tab" onclick="switchTab('database')">Step-by-Step Analysis</div>
+            <div class="tab" onclick="switchTab('specifications')">Specifications</div>
         </div>
         
         <div id="calculator" class="tab-content active">
@@ -107,10 +110,14 @@
                 
                 <div class="calc-inputs">
                     <label for="db_length">Length (mm):</label>
-                    <input type="number" id="db_length" placeholder="Enter length in mm" value="1000">
+                    <div class="input-group">
+                        <input type="number" id="db_length" placeholder="Enter length in mm" value="1000">
+                    </div>
                     
                     <label for="db_force">Force (N):</label>
-                    <input type="number" id="db_force" placeholder="Enter force in N" value="1000">
+                    <div class="input-group">
+                        <input type="number" id="db_force" placeholder="Enter force in N" value="1000">
+                    </div>
                 </div>
                 
                 <div class="calc-buttons">
@@ -119,6 +126,916 @@
             </div>
             
             <div id="step_by_step_content"></div>
+        </div>
+
+        <div id="specifications" class="tab-content">
+            <h2>Specifications</h2>
+            
+            <div class="specification-toggle">
+                <h3 onclick="toggleContent('steelwork')">Steelwork</h3>
+                <div id="steelwork" class="specification-content">
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('stairs')">Steelwork - Stairs</h4>
+                        <div id="stairs" class="specification-content">
+                            <p><strong>Design Standards:</strong> Staircases shall conform to BS 5395 and the Building Regulations where appropriate.</p>
+                            <p><strong>Optimum Pitch:</strong> 38° with a going of 250mm and a rise of 190mm. The sum of the going and twice the riser should fall in the range 600-660mm.</p>
+                            <p><strong>Occasional Access:</strong> For less than monthly access, a pitch up to 45° can be used.</p>
+                            <p><strong>Steel Staircases:</strong> Designed in accordance with Wessex Water's Standard Drawings STD 860 (Steel Staircase & Handrails).</p>
+                            <p><strong>Handrails:</strong> Shall consist of a top rail 1100mm above the highest accessible surface, a mid-rail 500mm below the top rail, and a toe (kick) plate not less than 100mm high.</p>
+                            <p><strong>Ref:</strong> DS 220, Section 4; WIMES 9.02, Section 6.4.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('ladders')">Steelwork - Ladders</h4>
+                        <div id="ladders" class="specification-content">
+                            <p><strong>Vertical Ladders:</strong> Designed in accordance with Wessex Water's Standard Drawing STD 862 (Vertical Fixed Ladders).</p>
+                            <p><strong>Safety Cages:</strong> Always fitted to ladders used exclusively as an emergency escape route (e.g., from a digester where the main access is via a stair). For other ladders, a risk assessment is required.</p>
+                            <p><strong>Fall Arrest Systems:</strong> Required for ladders over 2000mm or where there is a risk of falling more than 2000mm.</p>
+                            <p><strong>Retractable Handhold:</strong> Required at the top of ladders for covered chambers.</p>
+                            <p><strong>Ref:</strong> DS 220, Section 4; WIMES 9.02, Section 6.6.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('handrails')">Steelwork - Handrails</h4>
+                        <div id="handrails" class="specification-content">
+                            <p><strong>General Requirements:</strong> Handrails shall be strong and rigid enough to prevent a person from falling.</p>
+                            <p><strong>Dimensions:</strong> 42 x 3.2 hollow sections (32 nominal bore).</p>
+                            <p><strong>Loading:</strong> General Duty as defined in BS 4592, with consideration for Heavy Duty loading where necessary.</p>
+                            <p><strong>Components:</strong> Top rail at 1100mm, mid-rail at 500mm below the top rail, and a toe plate not less than 100mm high.</p>
+                            <p><strong>Infill Panels:</strong> Required in specific circumstances (e.g., over water, around aeration tanks, etc.).</p>
+                            <p><strong>Ref:</strong> DS 220, Section 5; WIMES 9.02, Section 6.8.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('flooring')">Steelwork - Flooring & Walkways</h4>
+                        <div id="flooring" class="specification-content">
+                            <p><strong>Design Standards:</strong> Industrial flooring and walkways shall conform to BS 4592, BS EN 14122, and EEMUA 105.</p>
+                            <p><strong>Loading:</strong> General Duty loading as defined in BS 4592, with consideration for Heavy Duty loading where necessary.</p>
+                            <p><strong>Materials:</strong> Open-mesh type flooring, except in specific cases (e.g., around screenings plant, over potable water channels, etc.).</p>
+                            <p><strong>Removable Flooring:</strong> Individual panels shall be no heavier than 20kg for safe removal by one person.</p>
+                            <p><strong>Cut-outs:</strong> Required to permit removal without disturbing spindles, supporting brackets, or pipework.</p>
+                            <p><strong>Ref:</strong> DS 220, Section 3; WIMES 9.02, Section 6.7.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('guardrails')">Steelwork - Guardrails</h4>
+                        <div id="guardrails" class="specification-content">
+                            <p><strong>General Requirements:</strong> Guardrails shall be designed to withstand lateral loads of 360 N/m for gangways and walkways, and 740 N/m for platforms and landings.</p>
+                            <p><strong>Components:</strong> Handrails, knee-rails, stanchions, and toe plates.</p>
+                            <p><strong>Infill Panels:</strong> Required in specific circumstances (e.g., over water, around aeration tanks, etc.).</p>
+                            <p><strong>Access Openings:</strong> Self-closing gates are required for access openings, with the same design load as adjacent guardrails.</p>
+                            <p><strong>Ref:</strong> WIMES 9.02, Section 6.8.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('materials')">Materials - General</h4>
+                        <div id="materials" class="specification-content">
+                            <p><strong>Stainless Steel:</strong> Required for all materials in contact with potable water (Grade 1.4401).</p>
+                            <p><strong>Galvanized Steel:</strong> Blast cleaned to SA 2½ and galvanized to BS EN ISO 1461.</p>
+                            <p><strong>GRP:</strong> May be used for remedial repair work or in smaller sections of flooring. Must be non-slip and resistant to UV and chemical attack.</p>
+                            <p><strong>Ref:</strong> DS 220, Section 9; WIMES 9.02, Section 6.2.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('accessCovers')">Access Covers</h4>
+                        <div id="accessCovers" class="specification-content">
+                            <p><strong>Selection:</strong> Access covers shall have ratings suited for their application as determined by the Access Cover Grade Selection Chart in Appendix A of DS 220.</p>
+                            <p><strong>Hinged Assisted Lift:</strong> Required for heavier covers (>20kgf lifting effort) where regular access is required.</p>
+                            <p><strong>Locking Facility:</strong> All access covers that can be opened without tools shall incorporate a locking facility.</p>
+                            <p><strong>Safety Grills:</strong> Required for covers over chambers with a fall >2m, designed to withstand a 250kg load.</p>
+                            <p><strong>Ref:</strong> DS 220, Section 10.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('supportStructures')">Supporting Structures</h4>
+                        <div id="supportStructures" class="specification-content">
+                            <p><strong>Corrosion Protection:</strong> The level of corrosion protection to supporting structures shall be no worse than the surface covers.</p>
+                            <p><strong>Removable Support Beams:</strong> Must have a methodology of lifting in compliance with the Manual Handling Regulations.</p>
+                            <p><strong>Ref:</strong> DS 220, Section 11.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('testingCompliance')">Testing & Compliance</h4>
+                        <div id="testingCompliance" class="specification-content">
+                            <p><strong>Factory Acceptance Testing (FAT):</strong> Required for walkways, platforms, stairs, ladders, and guardrails.</p>
+                            <p><strong>Site Acceptance Testing (SAT):</strong> Visual inspection and load testing to confirm compliance with design standards.</p>
+                            <p><strong>Ref:</strong> WIMES 9.02, Section 7.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="specification-toggle">
+                <h3 onclick="toggleContent('tables')">Tables</h3>
+                <div id="tables" class="specification-content">
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('gasketSelection')">Table 1: Gasket Selection Table</h4>
+                        <div id="gasketSelection" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Typical Operating Parameters</th>
+                                        <th>Flange and Bolt Details</th>
+                                        <th>Gasket Details</th>
+                                        <th>Tightening Torque</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Water and wastewater</td>
+                                        <td>16</td>
+                                        <td>25</td>
+                                        <td>RF</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Water and wastewater</td>
+                                        <td>16</td>
+                                        <td>25</td>
+                                        <td>RF</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hot water (CHP/THP)</td>
+                                        <td>16</td>
+                                        <td>100</td>
+                                        <td>RF</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Process air (≤ 3 barg)</td>
+                                        <td>3</td>
+                                        <td>70</td>
+                                        <td>RF</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Steam and steam condensate</td>
+                                        <td>16</td>
+                                        <td>200</td>
+                                        <td>RF</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Abbreviations:</strong> AF – Aramid Fibre, CS – Carbon Steel, EPDM – Ethylene Propylene Diene Monomer, FF – Full Face, RF – Raised Face, SS – Stainless Steel, SW – Spiral Wound.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 6.9.2.4, Page 21.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('flowVelocities')">Table 2: Minimum and Maximum Flow Velocities for Pipework Conveying Liquids</h4>
+                        <div id="flowVelocities" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Liquid</th>
+                                        <th>Minimum Velocity (m/s)</th>
+                                        <th>Maximum Velocity (m/s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Raw sewage</td>
+                                        <td>0.75</td>
+                                        <td>1.8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Raw water</td>
+                                        <td>0.50</td>
+                                        <td>2.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Partially treated and treated water</td>
+                                        <td>0.25</td>
+                                        <td>2.5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wastewater (post screening and grit removal)</td>
+                                        <td>0.50</td>
+                                        <td>2.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Grit-laden wastewater</td>
+                                        <td>1.0</td>
+                                        <td>2.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>FOG/scum-laden wastewater</td>
+                                        <td>1.0</td>
+                                        <td>2.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sludges (&lt; 1.5% DS)</td>
+                                        <td>0.75</td>
+                                        <td>2.0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sludges (1.5 &lt; DS% &lt; 12.0)</td>
+                                        <td>0.50</td>
+                                        <td>1.2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hydraulic oil (suction, delivery, return)</td>
+                                        <td>1.0, 3.0, 3.0</td>
+                                        <td>1.4, 5.0, 4.0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 6.10.1, Page 28.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('maxVelocities')">Table 3: Maximum Velocities for Pipework Conveying Air</h4>
+                        <div id="maxVelocities" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Pipe DN (mm)</th>
+                                        <th>Maximum Velocity (m/s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>≤ 150</td>
+                                        <td>8</td>
+                                    </tr>
+                                    <tr>
+                                        <td>150 &lt; 250</td>
+                                        <td>10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>250 &lt; 500</td>
+                                        <td>14</td>
+                                    </tr>
+                                    <tr>
+                                        <td>500 &lt; 1000</td>
+                                        <td>18</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1000 &lt; 1500</td>
+                                        <td>25</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1500</td>
+                                        <td>30</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 6.10.2, Page 29.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('primaryFluids')">Table 4: Primary Fluids Identification</h4>
+                        <div id="primaryFluids" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Pipe Contents</th>
+                                        <th>Basic Identification Colour</th>
+                                        <th>Supplementary Band</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Water (Raw)</td>
+                                        <td>00-E-55 White</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Water (Settled)</td>
+                                        <td>06-E-50 Apricot</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Water (Filtered)</td>
+                                        <td>12-D-45 Green</td>
+                                        <td>12-E-53 Linden Green</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Water (Treated)</td>
+                                        <td>18-E-53 Auxiliary Blue</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wastewater (Raw)</td>
+                                        <td>00-E-53 Black</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Wastewater (Primary/Storm)</td>
+                                        <td>10-A-07 Nimbus Grey</td>
+                                        <td>06-E-50 Apricot</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sludge (Primary)</td>
+                                        <td>06-D-45 Golden Brown</td>
+                                        <td>12-E-53 Linden Green</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sludge (Secondary)</td>
+                                        <td>06-D-45 Golden Brown</td>
+                                        <td>18-E-53 Auxiliary Blue</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 13.2, Page 60.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('auxiliaryFluids')">Table 5: Auxiliary Fluids Identification</h4>
+                        <div id="auxiliaryFluids" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Pipe Contents</th>
+                                        <th>Basic Identification Colour</th>
+                                        <th>Outer Band</th>
+                                        <th>Central Band</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cooling water</td>
+                                        <td>12-D-45 Green</td>
+                                        <td>N/A</td>
+                                        <td>00-E-55 White</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Condensate water</td>
+                                        <td>12-D-45 Green</td>
+                                        <td>04-D-45 Crimson</td>
+                                        <td>14-E-53 Emerald Green</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Steam</td>
+                                        <td>10-A-03 Silver Grey</td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Process air</td>
+                                        <td>20-E-51 Light Blue</td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Natural gas</td>
+                                        <td>08-C-35 Yellow Ochre</td>
+                                        <td>N/A</td>
+                                        <td>10-E-53 Primrose</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 13.2, Page 61.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('tableB1')">Table B1: Tightening Torque for Metal Raised Face vs Metal Raised Face and PE Stub vs PE Stub Flanged Joints (PN 10 and PN 16 Rated)</h4>
+                        <div id="tableB1" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>DN</th>
+                                        <th>PN10 (to seal at)</th>
+                                        <th>PN16 (to seal at)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>80</td>
+                                        <td>70 Nm</td>
+                                        <td>70 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100</td>
+                                        <td>70 Nm</td>
+                                        <td>75 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>150</td>
+                                        <td>110 Nm</td>
+                                        <td>115 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>200</td>
+                                        <td>120 Nm</td>
+                                        <td>110 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>250</td>
+                                        <td>110 Nm</td>
+                                        <td>155 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>300</td>
+                                        <td>120 Nm</td>
+                                        <td>165 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>350</td>
+                                        <td>115 Nm</td>
+                                        <td>160 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>400</td>
+                                        <td>155 Nm</td>
+                                        <td>200 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>500</td>
+                                        <td>155 Nm</td>
+                                        <td>240 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>600</td>
+                                        <td>200 Nm</td>
+                                        <td>305 Nm</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Appendix B, Page 74.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('tableB2')">Table B2: Target Bolt Stress, Gasket Stress, and Tightening Torque for Metal Raised Face vs Metal Raised Face Flanged Joints (PN 16 Rated)</h4>
+                        <div id="tableB2" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>DN</th>
+                                        <th>Target Bolt Stress (MPa)</th>
+                                        <th>Target Gasket Stress (MPa)</th>
+                                        <th>Target Torque (Nm)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>158</td>
+                                        <td>53</td>
+                                        <td>26</td>
+                                    </tr>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>190</td>
+                                        <td>53</td>
+                                        <td>31</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td>325</td>
+                                        <td>53</td>
+                                        <td>54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>25</td>
+                                        <td>404</td>
+                                        <td>50</td>
+                                        <td>67</td>
+                                    </tr>
+                                    <tr>
+                                        <td>32</td>
+                                        <td>281</td>
+                                        <td>53</td>
+                                        <td>112</td>
+                                    </tr>
+                                    <tr>
+                                        <td>40</td>
+                                        <td>355</td>
+                                        <td>53</td>
+                                        <td>141</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50</td>
+                                        <td>444</td>
+                                        <td>53</td>
+                                        <td>177</td>
+                                    </tr>
+                                    <tr>
+                                        <td>65</td>
+                                        <td>303</td>
+                                        <td>54</td>
+                                        <td>120</td>
+                                    </tr>
+                                    <tr>
+                                        <td>80</td>
+                                        <td>376</td>
+                                        <td>54</td>
+                                        <td>149</td>
+                                    </tr>
+                                    <tr>
+                                        <td>100</td>
+                                        <td>375</td>
+                                        <td>51</td>
+                                        <td>149</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Appendix B, Page 75.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('tableB3')">Table B3: Tightening Torque for Various Types of Flanged Joints (PN 6 to PN 40 Rated)</h4>
+                        <div id="tableB3" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>DN</th>
+                                        <th>PN6</th>
+                                        <th>PN10</th>
+                                        <th>PN16</th>
+                                        <th>PN25</th>
+                                        <th>PN40</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>6 Nm</td>
+                                        <td>11 Nm</td>
+                                        <td>11 Nm</td>
+                                        <td>11 Nm</td>
+                                        <td>11 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td>10 Nm</td>
+                                        <td>16 Nm</td>
+                                        <td>16 Nm</td>
+                                        <td>16 Nm</td>
+                                        <td>16 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>25</td>
+                                        <td>13 Nm</td>
+                                        <td>21 Nm</td>
+                                        <td>21 Nm</td>
+                                        <td>21 Nm</td>
+                                        <td>21 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>32</td>
+                                        <td>22 Nm</td>
+                                        <td>36 Nm</td>
+                                        <td>36 Nm</td>
+                                        <td>36 Nm</td>
+                                        <td>36 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>40</td>
+                                        <td>28 Nm</td>
+                                        <td>45 Nm</td>
+                                        <td>45 Nm</td>
+                                        <td>45 Nm</td>
+                                        <td>45 Nm</td>
+                                    </tr>
+                                    <tr>
+                                        <td>50</td>
+                                        <td>31 Nm</td>
+                                        <td>58 Nm</td>
+                                        <td>58 Nm</td>
+                                        <td>58 Nm</td>
+                                        <td>58 Nm</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Appendix B, Page 76.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('tableC1')">Table C1: Metallic Pipework Specifications</h4>
+                        <div id="tableC1" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Material</th>
+                                        <th>Pipe Standard(s)</th>
+                                        <th>Typical Sizes</th>
+                                        <th>Jointing Method(s)</th>
+                                        <th>Application(s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>DI 01</td>
+                                        <td>Ductile iron</td>
+                                        <td>BS EN 545</td>
+                                        <td>DN 80 to 600</td>
+                                        <td>Flanged, spigot and socket joints</td>
+                                        <td>Water treatment</td>
+                                    </tr>
+                                    <tr>
+                                        <td>CS 01</td>
+                                        <td>Lined carbon steel</td>
+                                        <td>BS EN 10216-1</td>
+                                        <td>Up to DN 600</td>
+                                        <td>Flanged or mechanical couplings</td>
+                                        <td>Water treatment and process air</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SS 01</td>
+                                        <td>304 and 316 stainless steel</td>
+                                        <td>BS EN 10216-5</td>
+                                        <td>Up to DN 600</td>
+                                        <td>Flanged or mechanical couplings</td>
+                                        <td>Water and wastewater treatment</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Appendix C, Page 85.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('tableC2')">Table C2: Thermoplastic Pipework Specifications</h4>
+                        <div id="tableC2" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Material</th>
+                                        <th>Pipe Standard(s)</th>
+                                        <th>Typical Sizes</th>
+                                        <th>Jointing Method(s)</th>
+                                        <th>Application(s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>UPVC</td>
+                                        <td>Unplasticised Polyvinylchloride</td>
+                                        <td>BS EN 1452-2</td>
+                                        <td>25 to 315 mm OD</td>
+                                        <td>Solvent welded and flanged</td>
+                                        <td>Water, wastewater, and building services</td>
+                                    </tr>
+                                    <tr>
+                                        <td>PE 100</td>
+                                        <td>Polyethylene</td>
+                                        <td>BS EN 12201-2</td>
+                                        <td>75 to 180 mm OD</td>
+                                        <td>Flanged, electrofusion welding</td>
+                                        <td>Water, wastewater, and building services</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Appendix C, Page 86.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('tableC3')">Table C3: Hose Specifications</h4>
+                        <div id="tableC3" class="specification-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Material</th>
+                                        <th>Hose Standard(s)</th>
+                                        <th>Typical Sizes</th>
+                                        <th>Jointing Method(s)</th>
+                                        <th>Application(s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Steel wire braid reinforced rubber hose</td>
+                                        <td>Synthetic rubber</td>
+                                        <td>BS EN 853</td>
+                                        <td>5 to 51 mm ID</td>
+                                        <td>Compression or flanged</td>
+                                        <td>De-watered sludge or hydraulic systems</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Synthetic rubber hose with stainless steel overbraid</td>
+                                        <td>Synthetic rubber</td>
+                                        <td>BS EN 853</td>
+                                        <td>8 to 50 mm ID</td>
+                                        <td>Compression</td>
+                                        <td>Process air</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Appendix C, Page 87.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="specification-toggle">
+                <h3 onclick="toggleContent('pipework')">Pipework</h3>
+                <div id="pipework" class="specification-content">
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('scope')">1.0 Scope (Pipework-Specific)</h4>
+                        <div id="scope" class="specification-content">
+                            <p><strong>Definition:</strong> Specifies requirements for non-buried pipework used in water and wastewater treatment, steam systems, hydraulic systems, and building services.</p>
+                            <p><strong>Applications:</strong></p>
+                            <ul>
+                                <li><strong>Water Treatment:</strong> Process water, treated water, and process air (≤ 3 barg).</li>
+                                <li><strong>Wastewater Treatment:</strong> Raw sewage, sludge, and process air (≤ 3 barg).</li>
+                                <li><strong>Steam Systems:</strong> Steam and condensate for CHP/THP plants.</li>
+                                <li><strong>Hydraulic Systems:</strong> Lubrication and hydraulic oil systems.</li>
+                                <li><strong>Building Services:</strong> Pipework for kitchens, bathrooms, and central heating in treatment works.</li>
+                            </ul>
+                            <p><strong>Exclusions:</strong></p>
+                            <ul>
+                                <li>HVAC systems, odour control, biogas, chlorine, diesel fuel, and other specific applications.</li>
+                                <li>Buried pipework (covered by CESWI).</li>
+                            </ul>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 1.0, Page 7.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('general')">2.0 General (Pipework-Specific)</h4>
+                        <div id="general" class="specification-content">
+                            <p><strong>Definitions:</strong></p>
+                            <ul>
+                                <li><strong>Purchaser:</strong> The end user or their representative.</li>
+                                <li><strong>Supplier:</strong> Responsible for design, fabrication, installation, and testing.</li>
+                                <li><strong>Specified/Stated:</strong> Information provided by the Purchaser or Supplier.</li>
+                            </ul>
+                            <p><strong>Regulations & Standards:</strong></p>
+                            <ul>
+                                <li>Compliance with UK statutory regulations (e.g., Pressure Equipment Regulations, Pressure Systems Safety Regulations).</li>
+                                <li>Adherence to BS EN 13480 (Metallic Industrial Pipework) and ASME B31.3 (Process Piping).</li>
+                            </ul>
+                            <p><strong>Quality Assurance:</strong> Suppliers must operate under BS EN ISO 9001 and BS EN ISO 14001 for quality and environmental management.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 2.1, Page 8; Section 2.2, Page 9; Section 2.2.4, Page 9.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('external')">3.0 External Operating Environment (Pipework-Specific)</h4>
+                        <div id="external" class="specification-content">
+                            <p><strong>Environmental Factors:</strong></p>
+                            <ul>
+                                <li><strong>Location:</strong> Above ground, in chambers, or open trenches.</li>
+                                <li><strong>Temperature:</strong> Minimum and maximum ambient temperatures.</li>
+                                <li><strong>Corrosivity:</strong> Categories C1 (low) to Im2 (very high) as per BS EN ISO 9223.</li>
+                                <li><strong>Hazardous Areas:</strong> Classification for explosive atmospheres.</li>
+                            </ul>
+                            <p><strong>Special Hazards:</strong> High levels of pollutants, vibration from adjacent machinery, or other site-specific risks.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 3.0, Page 9; Section 3.2, Page 9.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('fluidDetails')">4.0 Process Fluid Details & Operating Parameters (Pipework-Specific)</h4>
+                        <div id="fluidDetails" class="specification-content">
+                            <p><strong>Fluid Details:</strong></p>
+                            <ul>
+                                <li><strong>Type:</strong> Water, wastewater, sludge, steam, hydraulic oil, etc. (See Table 4: Primary Fluids Identification and Table 5: Auxiliary Fluids Identification).</li>
+                                <li><strong>Characteristics:</strong> Grit content, FOG (Fats, Oils, Greases), chemical dosing, and corrosive gases (e.g., H₂S).</li>
+                            </ul>
+                            <p><strong>Operating Parameters:</strong></p>
+                            <ul>
+                                <li><strong>Pressures:</strong> Design Pressure (DP), Maximum Design Pressure (MDP).</li>
+                                <li><strong>Temperatures:</strong> Minimum, design, and maximum temperatures.</li>
+                                <li><strong>Flow Rates:</strong> Minimum, design, and maximum flow rates (See Table 2: Minimum and Maximum Flow Velocities for Pipework Conveying Liquids and Table 3: Maximum Velocities for Pipework Conveying Air).</li>
+                                <li><strong>Cyclic Variations:</strong> Consideration for cyclic pressure and temperature changes.</li>
+                            </ul>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 4.1, Page 9-10; Section 4.2, Page 10.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('performance')">5.0 Performance Requirements (Pipework-Specific)</h4>
+                        <div id="performance" class="specification-content">
+                            <p><strong>Design Life:</strong></p>
+                            <ul>
+                                <li><strong>Rigid Metallic & Plastic Pipework:</strong> 20 years.</li>
+                                <li><strong>Flexible Hoses:</strong> 10 years.</li>
+                            </ul>
+                            <p><strong>Maintenance:</strong> Pipework should be designed to be maintenance-free, but specific maintenance requirements must be communicated.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 5.1, Page 10; Section 6.1.8, Page 11.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('designRequirements')">6.0 Design Requirements (Pipework-Specific)</h4>
+                        <div id="designRequirements" class="specification-content">
+                            <h4>6.1 General</h4>
+                            <p><strong>Material Selection:</strong> Based on fluid type, corrosion resistance, and compatibility. Avoid dissimilar metals to prevent galvanic corrosion.</p>
+                            <p><strong>Corrosion Protection:</strong></p>
+                            <ul>
+                                <li><strong>Internal Linings:</strong> Cement mortar, epoxy, or FBE (Fusion Bonded Epoxy) for ductile iron and carbon steel.</li>
+                                <li><strong>External Coatings:</strong> Zinc, bitumen, or epoxy coatings as per WIMES 4.01.</li>
+                            </ul>
+                            <p><strong>Pressure & Temperature Ratings:</strong> Pipework must withstand specified pressure and temperature ranges, including surge pressures.</p>
+                            <p><strong>Cyclic Loading:</strong> Consideration for fatigue and stress, especially in steel pipework.</p>
+                            <p><strong>Flexibility:</strong> Accommodate thermal expansion, settlement, and vibration. Use of expansion joints, loops, and offsets.</p>
+                            <p><strong>Supports:</strong> Adequate to prevent sagging, vibration, and load transfer. Independent supports for machinery-connected pipework. Galvanized supports for carbon steel pipework to prevent corrosion.</p>
+                            <p><strong>Fittings:</strong></p>
+                            <ul>
+                                <li><strong>Bends & Elbows:</strong> Long-radius bends preferred for liquids, especially in larger pipe sizes (DN ≥ 300).</li>
+                                <li><strong>Tapers:</strong> Gradual changes in diameter to avoid step changes.</li>
+                                <li><strong>Test Points:</strong> For pressure gauges and instruments, with isolating valves.</li>
+                                <li><strong>Purging, Flushing & Draining Points:</strong> Sized at 25% of the parent pipe size, with isolating valves.</li>
+                            </ul>
+                            <p><strong>Joining Methods:</strong></p>
+                            <ul>
+                                <li><strong>Flanged Joints:</strong> PN 16 flanges, gasket selection (See Table 1: Gasket Selection Table), and bolt tightening (See Table B1, Table B2, and Table B3 for tightening torque details).</li>
+                                <li><strong>Spigot and Socket Joints:</strong> EPDM or nitrile rubber gaskets.</li>
+                                <li><strong>Threaded Joints:</strong> WRAS-approved thread tape or compounds.</li>
+                                <li><strong>Pressed Joints:</strong> Limited to non-toxic, non-flammable applications.</li>
+                                <li><strong>Mechanical Couplings:</strong> Sleeve and grooved types for flexibility and dismantling.</li>
+                            </ul>
+                            <p><strong>Flow Velocity:</strong></p>
+                            <ul>
+                                <li><strong>Liquids:</strong> Minimum velocities to prevent sedimentation (See Table 2: Minimum and Maximum Flow Velocities for Pipework Conveying Liquids).</li>
+                                <li><strong>Air:</strong> Maximum velocities to prevent excessive noise (See Table 3: Maximum Velocities for Pipework Conveying Air).</li>
+                            </ul>
+                            <p><strong>Blockage Prevention:</strong></p>
+                            <ul>
+                                <li>Minimum pipe size of DN 80 for wastewater.</li>
+                                <li>Rodding or jetting points for sludge, grit, and FOG applications.</li>
+                            </ul>
+                            <p><strong>Layout & Routing:</strong> Ensure accessibility for operation and maintenance. Avoid routing above doorways or along personnel access routes.</p>
+                            <p><strong>Air Release & Entry:</strong> Venting to release air during filling and draining. Automatic air valves at high points.</p>
+                            <p><strong>Purging, Flushing & Draining:</strong> Design for easy maintenance and cleaning. Dead legs in water pipework are prohibited.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 6.2.1, Page 12; Section 6.3, Page 12; Section 6.4, Page 12; Section 6.5, Page 12; Section 6.6, Page 12; Section 6.7, Page 13-14; Section 6.8, Page 15-16; Section 6.9, Page 17-24; Section 6.10, Page 28-29; Section 6.11, Page 30; Section 6.12, Page 30; Section 6.13, Page 31; Section 6.14, Page 31.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('interfaces')">7.0 Design Requirements for Interfaces with Specific Equipment (Pipework-Specific)</h4>
+                        <div id="interfaces" class="specification-content">
+                            <h4>7.1 Pumps</h4>
+                            <p><strong>Inlet Pipework:</strong> Bell-mouth entrance to reduce friction losses. Short and straight to prevent swirl and vortex formation. Eccentric reducers for horizontal pipework to prevent air pockets.</p>
+                            <p><strong>Outlet Pipework:</strong> Isolating valves and check valves. Air relief valves to release trapped air.</p>
+                            <p><strong>Test Points:</strong> Pressure gauges at specific locations (e.g., between pump outlet and isolating valve).</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 7.1.2, Page 33; Section 7.1.3, Page 33-34; Section 7.1.4, Page 35.</p>
+                            <h4>7.2 Rotodynamic Pumps</h4>
+                            <p><strong>Hydraulic Modeling:</strong> Required for complex systems.</p>
+                            <p><strong>Flooded Suction:</strong> Ensure pumps operate with a flooded suction to prevent cavitation.</p>
+                            <p><strong>Air Relief Valves:</strong> To release air during system filling.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 7.2.1, Page 36; Section 7.2.2, Page 36; Section 7.2.3, Page 37.</p>
+                            <h4>7.3 Positive Displacement Pumps</h4>
+                            <p><strong>Flooded Suction:</strong> Ensure rapid and reliable priming.</p>
+                            <p><strong>Over-Pressure Protection:</strong> Pressure relief valves or bursting discs.</p>
+                            <p><strong>Sludge Cake Pumping:</strong> Stainless steel or FBE-coated carbon steel pipework. Minimum DN 80, with long-radius bends and full-bore valves.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 7.3.1, Page 38; Section 7.3.2, Page 38-39; Section 7.3.3, Page 40.</p>
+                            <h4>7.4 Blowers & Fans</h4>
+                            <p><strong>Flexible Connections:</strong> To accommodate movement and vibration.</p>
+                            <p><strong>Noise Reduction:</strong> Design to prevent excessive noise from high-velocity air flow.</p>
+                            <p><strong>Condensate Drains:</strong> At low points to remove condensate.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 7.4.1, Page 40.</p>
+                            <h4>7.5 Flowmeters</h4>
+                            <p><strong>Straight Pipe Lengths:</strong> Upstream and downstream as per manufacturer's instructions.</p>
+                            <p><strong>Isolating Valves:</strong> Not required unless specified by the Purchaser.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 7.5, Page 42.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('fabrication')">8.0 Fabrication (Pipework-Specific)</h4>
+                        <div id="fabrication" class="specification-content">
+                            <h4>8.1 Metallic Pipework</h4>
+                            <p><strong>Bending & Forming:</strong> Hot or cold bending, with post-bend heat treatment if required. No cracks or buckles allowed.</p>
+                            <p><strong>Welding:</strong> Compliance with BS EN 13480-4 and ASME B31.3. Welding Procedure Specifications (WPS) and Welder Qualifications (WQT/WPQ). Stainless Steel: Purged with oxygen-free nitrogen or argon during welding. Post-Weld Treatment: Pickling of stainless steel welds to restore corrosion resistance.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 8.1.2, Page 43; Section 8.1.3, Page 43.</p>
+                            <h4>8.2 Plastic Pipework</h4>
+                            <p><strong>Fusion Welding:</strong> Butt fusion for PE pipework, with bead removal for sewage and sludge applications.</p>
+                            <p><strong>Solvent Welding:</strong> For UPVC and ABS pipework, following manufacturer's instructions.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 8.2.1, Page 44; Section 8.2.2, Page 44.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('installation')">9.0 Installation (Pipework-Specific)</h4>
+                        <div id="installation" class="specification-content">
+                            <h4>9.1 General</h4>
+                            <p><strong>Protection:</strong> Pipes must be protected from foreign material during installation.</p>
+                            <p><strong>Alignment:</strong> Pipe ends must align naturally without forcing.</p>
+                            <p><strong>Wall Penetrations:</strong> Use puddle pipes, wall-couplings, or seal rings.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 9.1, Page 44.</p>
+                            <h4>9.2 Flanged Joints</h4>
+                            <p><strong>Alignment:</strong> Flange faces must align within 0.5% across any diameter.</p>
+                            <p><strong>Gaskets:</strong> Full-face gaskets preferred for raised-face flanges (See Table 1: Gasket Selection Table).</p>
+                            <p><strong>Bolt Tightening:</strong> Even tightening in diametrically opposite pairs, with multiple stages (30%, 60%, 100% of final torque) (See Table B1, Table B2, and Table B3 for tightening torque details).</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 9.2, Page 46; Section 6.9.2.4, Page 21.</p>
+                            <h4>9.3 Threaded Joints</h4>
+                            <p><strong>Thread Tape:</strong> WRAS-approved for drinking water applications.</p>
+                            <p><strong>Galvanized Threads:</strong> Treated with cold galvanizing paint after installation.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 6.9.4, Page 22; Section 9.3, Page 47.</p>
+                            <h4>9.4 Mechanical Couplings</h4>
+                            <p><strong>Alignment:</strong> Ensure proper alignment and setting-gap as per manufacturer's instructions.</p>
+                            <p><strong>Tying:</strong> Couplings must be tied to resist hydraulic thrust.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 9.4, Page 47; Section 6.9.6, Page 23.</p>
+                        </div>
+                    </div>
+                    <div class="specification-toggle">
+                        <h4 onclick="toggleContent('inspection')">10.0 Inspection & Testing (Pipework-Specific)</h4>
+                        <div id="inspection" class="specification-content">
+                            <h4>10.1 Inspection</h4>
+                            <p><strong>Visual Checks:</strong> Ensure pipework dimensions, layout, and routing comply with drawings.</p>
+                            <p><strong>Weld Examination:</strong></p>
+                            <ul>
+                                <li><strong>Visual:</strong> All welds.</li>
+                                <li><strong>Radiographic/Ultrasonic:</strong> 50% of butt welds for high-pressure pipework.</li>
+                                <li><strong>Magnetic Particle/Dye Penetrant:</strong> 50% of fillet welds for high-pressure pipework.</li>
+                            </ul>
+                            <p><strong>Non-Destructive Testing (NDT):</strong> As specified in the PARTICULAR SPECIFICATION.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 10.1, Page 48; Section 10.1.2, Page 49.</p>
+                            <h4>10.2 Pressure Testing</h4>
+                            <p><strong>Hydrostatic Testing:</strong></p>
+                            <ul>
+                                <li>Test pressure calculated as STP = MDP + 5 bar or 1.5 x MDP (whichever is lower).</li>
+                                <li>Minimum test duration: 1 hour, with no visible leakage.</li>
+                            </ul>
+                            <p><strong>Pneumatic Testing:</strong> For low-pressure air systems (≤ 3 barg). Test pressure applied in stages, with leak checks at each stage.</p>
+                            <p><strong>Reference:</strong> WIMES 8.08i1 - Section 10.2.2, Page 51; Section 10.2.3, Page 54.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="reference">
@@ -132,5 +1049,20 @@
     </div>
 
     <script type="module" src="scripts/ui.js"></script>
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function updateDbUnits() {
+            // Implement the logic to update units in the Step-by-Step Analysis section
+            const lengthUnit = document.getElementById('db_length_unit').value;
+            const forceUnit = document.getElementById('db_force_unit').value;
+
+            // You can add logic here to convert the values based on selected units
+            // and update the displayed results accordingly.
+        }
+    </script>
 </body>
 </html>

@@ -125,6 +125,11 @@ function switchTab(tabId) {
     });
 }
 
+function toggleContent(id) {
+    const content = document.getElementById(id);
+    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+}
+
 // Export functions for use in HTML
 window.updateSizes = updateSizes;
 window.updateDbSizes = updateDbSizes;

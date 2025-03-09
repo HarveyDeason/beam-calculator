@@ -82,3 +82,80 @@ export class BeamCalculator {
         ];
     }
 }
+
+function updateDbUnits() {
+    const lengthUnit = document.getElementById('db_length_unit').value;
+    const forceUnit = document.getElementById('db_force_unit').value;
+
+    const length = parseFloat(document.getElementById('db_length').value);
+    const force = parseFloat(document.getElementById('db_force').value);
+
+    // Convert length to mm
+    let lengthMM = length;
+    if (lengthUnit === 'cm') {
+        lengthMM = length * 10;
+    } else if (lengthUnit === 'm') {
+        lengthMM = length * 1000;
+    }
+
+    // Convert force to N
+    let forceN = force;
+    if (forceUnit === 'kN') {
+        forceN = force * 1000;
+    } else if (forceUnit === 'kg') {
+        forceN = force * 9.81; // Convert kg to N
+    }
+
+    // Now you can use lengthMM and forceN for calculations or display
+    // For example, you can call the calculation function with these values
+    // calculate(lengthMM, forceN);
+}
+
+function showStepByStep() {
+    const beamType = document.getElementById('db_beam_type').value;
+    const beamSize = document.getElementById('db_beam_size').value;
+    const lengthMM = parseFloat(document.getElementById('db_length').value); // Always in mm
+    const forceN = parseFloat(document.getElementById('db_force').value); // Always in N
+
+    if (!lengthMM || !forceN) {
+        alert('Please enter length and force values');
+        return;
+    }
+
+    const units = {
+        length_unit: 'mm', // Always in mm for calculations
+        force_unit: 'N',   // Always in N for calculations
+        stress_unit: 'N/mm²', // Default stress unit
+        deflection_unit: 'mm' // Default deflection unit
+    };
+
+    const result = BeamCalculator.calculate(
+        beamType,
+        beamSize,
+        lengthMM,
+        forceN,
+        units
+    );
+    
+    const contentDiv = document.getElementById('step_by_step_content');
+    let stepsHTML = '';
+    
+    result.steps.forEach(step => {
+        stepsHTML += `
+        <div class="step">
+            <h4>${step.title}</h4>
+            <pre>${step.content}</pre>
+        </div>`;
+    });
+    
+    stepsHTML += `
+    <div class="calc-summary">
+        <h3>Final Results</h3>
+        <p><strong>Stress:</strong> ${result.stress} ${units.stress_unit}</p>
+        <p><strong>Deflection:</strong> ${result.deflection} ${units.deflection_unit}</p>
+        <p><strong>Stress Utilization:</strong> ${result.utilization}%</p>
+        <p><strong>Span/Deflection Ratio:</strong> ${result.span_ratio}</p>
+    </div>`;
+    
+    contentDiv.innerHTML = stepsHTML;
+}
